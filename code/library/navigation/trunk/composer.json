@@ -1,0 +1,21 @@
+{
+    "name": "simpleet/library-navigation",
+    "description": "",
+    "authors": [
+        {
+            "name": "Phuah Kok Keong",
+            "email": "hawk@simpleet.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.2.*",
+    },
+    "autoload": {
+        "psr-0": {
+            "Simpleet\\Library\\Navigation": "src/classes"
+        }
+    },
+    "minimum-stability": "stable"
+}
+ 
