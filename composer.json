@@ -16,6 +16,7 @@
         "psr-0": {
             "Simpleet\\Library\\Navigation": "src/classes"
         }
-    }
+    },
+    "minimum-stability": "dev"
 }
  
