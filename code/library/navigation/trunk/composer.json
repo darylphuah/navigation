@@ -1,5 +1,5 @@
 {
-    "name": "simpleet/library-navigation",
+    "name": "simpleet/navigation",
     "description": "",
     "authors": [
         {
@@ -15,7 +15,6 @@
         "psr-0": {
             "Simpleet\\Library\\Navigation": "src/classes"
         }
-    },
-    "minimum-stability": "stable"
+    }
 }
  
