@@ -10,13 +10,16 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "illuminate/support": "4.2.*"
+        "illuminate/support": "4.2.*@stable",
+        "raveren/kint": "dev-master"
     },
     "autoload": {
+        "classmap": [
+            "src/views"
+        ],
         "psr-0": {
-            "Simpleet\\Library\\Navigation": "src/classes"
+            "Simpleet\\Library\\Navigation\\": "src/classes"
         }
     },
     "minimum-stability": "dev"
 }
- 
