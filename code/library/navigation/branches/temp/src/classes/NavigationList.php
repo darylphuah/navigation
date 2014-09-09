@@ -1,4 +1,4 @@
-<?php 
+<?php namespace Simpleet\Library\Navigation;
 /**
  * Navigation Class
  * 
@@ -9,7 +9,6 @@
  * @copyright Simpleet Sdn. Bhd 
  */
 
-namespace Simpleet\Library\Navigation;
 
 class NavigationList {
 	/**
@@ -25,7 +24,7 @@ class NavigationList {
 	/**
 	 * @var array Stores the navigation nodes
 	 */
-	protected $node = array();
+	public $nodes = array();
 
 	/**
 	 * Initialise the object and configuration settings
@@ -68,7 +67,7 @@ class NavigationList {
 	{
 		// Make sure a key is specified
 		$key = array_get($args, 'key', '');
-		if ( !empty($key) )
+		if ( strlen($key) )
 		{
 			// Check and verify navigationlist objects
 			$children = array_get($args, 'children', array());
@@ -82,15 +81,15 @@ class NavigationList {
 				}
 			}
 
-			$this->node[$key] = array( 'title'    => array_get($args, 'title',    ''),
-			                           'location' => $location,
-			                           'class'    => array_get($args, 'class',    ''),
-			                           'active'   => array_get($args, 'active',   false),
-			                           'external' => array_get($args, 'external', false),
-			                           'image'    => array_get($args, 'image',    ''),
-			                           'html'     => $html,
-			                           'children' => $children,
-			                           'key'      => $key
+			$this->nodes[$key] = array( 'title'    => array_get($args, 'title',    ''),
+			                            'location' => array_get($args, 'location', ''),
+			                            'class'    => array_get($args, 'class',    ''),
+			                            'active'   => array_get($args, 'active',   false),
+			                            'external' => array_get($args, 'external', false),
+			                            'image'    => array_get($args, 'image',    ''),
+			                            'html'     => array_get($args, 'html',     ''),
+			                            'children' => $children,
+			                            'key'      => $key
 			);
 		}
 	}
@@ -107,7 +106,7 @@ class NavigationList {
 	 */
 	public function remove( $key )
 	{
-		unset($this->node[$key]);
+		unset($this->nodes[$key]);
 	}
 
 	/**
@@ -118,7 +117,7 @@ class NavigationList {
 	public function attach( $key,
 	                        $list_obj )
 	{
-		$this->node[$key]['children'][] = $list_obj;
+		$this->nodes[$key]['children'][] = $list_obj;
 	}
 
 	/**
@@ -128,12 +127,12 @@ class NavigationList {
 	 */
 	public function detach( $key, $object )
 	{
-		$total = count($this->node[$key]['children']);
+		$total = count($this->nodes[$key]['children']);
 		for ( $i = 0; $i < $total; $i++ )
 		{
-			if ( $this->node[$key]['children'][$i] === $object )
+			if ( $this->nodes[$key]['children'][$i] === $object )
 			{
-				unset($this->node[$key]['children'][$i]);
+				unset($this->nodes[$key]['children'][$i]);
 			}
 		}
 	}
@@ -145,9 +144,9 @@ class NavigationList {
 	 */
 	public function active( $key )
 	{
-		if ( isset($this->node[$key]) )
+		if ( isset($this->nodes[$key]) )
 		{
-			$this->node[$key]['active'] = true;
+			$this->nodes[$key]['active'] = true;
 		}
 	}
 	/**
@@ -156,9 +155,9 @@ class NavigationList {
 	 */
 	public function resetActive()
 	{
-		foreach ( $this->node AS $key => $node )
+		foreach ( $this->nodes AS $key => $node )
 		{
-			$this->node[$key]['active'] = false;
+			$this->nodes[$key]['active'] = false;
 		}
 	}
 
@@ -169,9 +168,9 @@ class NavigationList {
 	 */
 	public function inactive( $key )
 	{
-		if ( isset($this->node[$key]) )
+		if ( isset($this->nodes[$key]) )
 		{
-			$this->node[$key]['active'] = true;
+			$this->nodes[$key]['active'] = true;
 		}
 	}
 
@@ -182,9 +181,9 @@ class NavigationList {
 	 */
 	public function isActive( $key )
 	{
-		if ( isset($this->node[$key]) )
+		if ( isset($this->nodes[$key]) )
 		{
-			return $this->node[$key]['active'];
+			return $this->nodes[$key]['active'];
 		}
 		return false;
 	}
@@ -195,11 +194,11 @@ class NavigationList {
 	 *
 	 * @param string $key Key that identifies node
 	 */
-	public function get_title( $key )
+	public function getTitle( $key )
 	{
-		if ( isset($this->node[$key]) )
+		if ( isset($this->nodes[$key]) )
 		{
-			return $this->node[$key]['title'];
+			return $this->nodes[$key]['title'];
 		}
 		else
 		{
@@ -212,11 +211,11 @@ class NavigationList {
 	 *
 	 * @param string $key Key that identifies node
 	 */
-	public function get_image( $key )
+	public function getImage( $key )
 	{
-		if ( isset($this->node[$key]) )
+		if ( isset($this->nodes[$key]) )
 		{
-			return $this->node[$key]['image'];
+			return $this->nodes[$key]['image'];
 		}
 		else
 		{
@@ -229,15 +228,26 @@ class NavigationList {
 	 *
 	 * @param string $key Key that identifies node
 	 */
-	public function get_html( $key )
+	public function getGtml( $key )
 	{
-		if ( isset($this->node[$key]) )
+		if ( isset($this->nodes[$key]) )
 		{
-			return $this->node[$key]['html'];
+			return $this->nodes[$key]['html'];
 		}
 		else
 		{
 			return '';
 		}
 	}
+
+ 	public function render( $renderCallback = null )
+	{
+		return call_user_func($renderCallback, $this);
+	}
+
+	public function output( $renderCallback = null )
+	{
+		echo $this->render($renderCallback);
+	}
+
 }
