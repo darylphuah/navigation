@@ -1,4 +1,4 @@
-<?php defined('SYSPATH') or die('No direct script access.');
+<?php namespace Simpleet\Library\Navigation;
 
 /**
  * Navigation Store class
@@ -7,10 +7,8 @@
  * all the navigation list objects for easy retrieval and manipulation.
  *
  * @author     Phuah Kok Keong
- * @copyright  Copyright © 2041, Simpleet Sdn Bhd
+ * @copyright  Copyright © 2014, Simpleet Sdn Bhd
  */
-
-namespace Simpleet\Library\Navigation;
 
 class NavigationStore
 {
@@ -248,6 +246,28 @@ class NavigationStore
 			return $this->_store[$menu_name]->getHtml($key);
 		}
 		return '';
+	}
+
+	public function render( $menu_name, $renderCallback = null )
+	{
+
+		if ( isset($this->_store[$menu_name]) )
+		{
+			return $this->_store[$menu_name]->render($renderCallback);
+		}
+		return '';		
+	}
+
+	public function output( $menu_name, $renderCallback = null )
+	{
+		if ( isset($this->_store[$menu_name]) )
+		{
+			echo $this->render($menu_name, $renderCallback);
+		}
+		else
+		{
+			echo '';
+		}
 	}
 }
 ?>
