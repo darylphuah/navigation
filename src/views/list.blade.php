@@ -14,7 +14,19 @@
 ?>
 	<li<?php echo ( !empty($class) ) ? ' class="'.$class.'"' : ''; ?>>
 		<?php if ( !empty($node['html']) ): ?>
-		<?php echo $node['html']; ?>
+		<?php 
+			echo str_replace(
+				array(
+					'%title%',
+					'%location%'
+				),
+				array(
+					$node['title'],
+					$node['location']
+				),
+				$node['html']
+			);
+		?>
 		<?php elseif ( !empty($node['image']) ): ?>
 		<a href="<?php echo $node['location']; ?>"<?php echo ( $node['external'] ) ? ' class="external"': ''; ?>>
 			<img src="<?php echo $node['image']; ?>" alt="<?php echo $node['title']; ?>" />
