@@ -1,7 +1,7 @@
 {
     "name": "simpleet/library-navigation",
-    "version": "dev",
     "description": "",
+    "version": "0.1.1",
     "authors": [
         {
             "name": "Phuah Kok Keong",
@@ -9,17 +9,14 @@
         }
     ],
     "require": {
-        "php": ">=5.3.0",
-        "illuminate/support": "4.2.*@stable",
-        "raveren/kint": "dev-master"
+        "php": ">=5.4.0",
+        "illuminate/support": "4.2.*@stable"
     },
     "autoload": {
-        "classmap": [
-            "src/views"
-        ],
         "psr-0": {
-            "Simpleet\\Library\\Navigation\\": "src/classes"
+            "Simpleet\\Library\\Navigation": "src/classes"
         }
     },
     "minimum-stability": "dev"
 }
+ 
