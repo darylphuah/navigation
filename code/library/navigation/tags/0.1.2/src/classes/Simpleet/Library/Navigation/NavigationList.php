@@ -11,6 +11,12 @@
 
 
 class NavigationList {
+
+	/**
+	 * @var string The unique key to identify this list
+	 */
+	public $key;
+
 	/**
 	 * @var string The CSS ID of the navigation list. 
 	 */
@@ -25,6 +31,12 @@ class NavigationList {
 	 * @var array Stores the navigation nodes
 	 */
 	public $nodes = array();
+
+
+	/**
+	 * @var mixed The default callback to render the list
+	 */
+	protected $renderCallback = null;
 
 	/**
 	 * Initialise the object and configuration settings
@@ -216,7 +228,7 @@ class NavigationList {
 	 *
 	 * @param string $key Key that identifies node
 	 */
-	public function getGtml( $key )
+	public function getHtml( $key )
 	{
 		if ( isset($this->nodes[$key]) )
 		{
@@ -228,8 +240,19 @@ class NavigationList {
 		}
 	}
 
+	public function setDefaultRender($renderCallback)
+	{
+		$this->renderCallback = $renderCallback;
+
+		return $this;
+	}
+
  	public function render( $renderCallback = null )
 	{
+		if ( is_null($renderCallback) )
+		{
+			$renderCallback = $this->renderCallback;
+		}
 		return call_user_func($renderCallback, $this);
 	}
 
