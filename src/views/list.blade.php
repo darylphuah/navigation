@@ -38,11 +38,13 @@
 		<?php endif; ?>
 
 		<?php
-		if ( !empty($node['children']) )
+		if ( count($node['children']) )
 		{
+			echo 'meh';
 			foreach ( $node['children'] as $child )
 			{
-				$child->output($template);
+				echo $child;
+				Navigation::output($child);
 			}
 		}
 		?>

@@ -11,6 +11,12 @@
 
 
 class NavigationList {
+
+	/**
+	 * @var string The unique key to identify this list
+	 */
+	public $key;
+
 	/**
 	 * @var string The CSS ID of the navigation list. 
 	 */
@@ -25,6 +31,12 @@ class NavigationList {
 	 * @var array Stores the navigation nodes
 	 */
 	public $nodes = array();
+
+
+	/**
+	 * @var mixed The default callback to render the list
+	 */
+	protected $renderCallback = null;
 
 	/**
 	 * Initialise the object and configuration settings
@@ -52,7 +64,7 @@ class NavigationList {
 	 *   - boolean  'external'  Does this node point to an external resource (opens in a new window)
 	 *   - string   'class'     Class of the node (e.g. node-home)
 	 *   - string   'html'      If the node uses a route/view, the generated html will be stored here. HTML can be passed directly as well
-	 *   - array    'children'  An array of Navigationlist objects to be attached as children
+	 *   - array    'children'  An array of Navigationlist object keys to be attached as children
 	 *
 	 * When a node is rendered, it will display in the following order:
 	 *  1. html
@@ -69,18 +81,6 @@ class NavigationList {
 		$key = array_get($args, 'key', '');
 		if ( strlen($key) )
 		{
-			// Check and verify navigationlist objects
-			$children = array_get($args, 'children', array());
-			$total    = count($children);
-
-			for ( $i = 0; $i < $total; $i++ )
-			{
-				if ( !($children[$i] instanceof Navigation) )
-				{
-					unset($children[$i]);
-				}
-			}
-
 			$this->nodes[$key] = array( 'title'    => array_get($args, 'title',    ''),
 			                            'location' => array_get($args, 'location', ''),
 			                            'class'    => array_get($args, 'class',    ''),
@@ -88,7 +88,7 @@ class NavigationList {
 			                            'external' => array_get($args, 'external', false),
 			                            'image'    => array_get($args, 'image',    ''),
 			                            'html'     => array_get($args, 'html',     ''),
-			                            'children' => $children,
+			                            'children' => array_get($args, 'children', array()),
 			                            'key'      => $key
 			);
 		}
@@ -240,8 +240,19 @@ class NavigationList {
 		}
 	}
 
+	public function setDefaultRender($renderCallback)
+	{
+		$this->renderCallback = $renderCallback;
+
+		return $this;
+	}
+
  	public function render( $renderCallback = null )
 	{
+		if ( is_null($renderCallback) )
+		{
+			$renderCallback = $this->renderCallback;
+		}
 		return call_user_func($renderCallback, $this);
 	}
 
