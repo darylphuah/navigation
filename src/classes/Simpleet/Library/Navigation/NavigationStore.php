@@ -31,6 +31,8 @@ class NavigationStore
 
 		$this->_store[$menu_name] = $nav;
 
+		$nav->key = $menu_name;
+
 		return $nav;
 	}
 
@@ -246,6 +248,11 @@ class NavigationStore
 			return $this->_store[$menu_name]->getHtml($key);
 		}
 		return '';
+	}
+
+	public function setDefaultRender($menu_name, $renderCallback)
+	{
+		return $this->_store[$menu_name]->setDefaultRender($renderCallback);
 	}
 
 	public function render( $menu_name, $renderCallback = null )
