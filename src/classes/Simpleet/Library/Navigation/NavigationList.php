@@ -52,6 +52,13 @@ class NavigationList {
 		return $this;
 	}
 
+	public function setClass( $class )
+	{
+		$this->class = $class;
+
+		return $this;
+	}
+
 	/**
 	 * Add a navigation node
 	 *
