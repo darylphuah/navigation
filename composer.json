@@ -1,7 +1,7 @@
 {
     "name": "simpleet/library-navigation",
     "description": "",
-    "version": "trunk-dev",
+    "version": "5.0.0",
     "authors": [
         {
             "name": "Phuah Kok Keong",
@@ -9,9 +9,7 @@
         }
     ],
     "require": {
-        "php": ">=5.3.0",
-        "illuminate/support": "4.2.*@stable",
-        "raveren/kint": "dev-master"
+        "illuminate/support": "5.2.*@stable"
     },
     "autoload": {
         "classmap": [
