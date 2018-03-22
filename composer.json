@@ -1,7 +1,7 @@
 {
     "name": "simpleet/helper-navigation",
     "description": "",
-    "version": "5.0.1",
+    "version": "5.6.1",
     "authors": [
         {
             "name": "Phuah Kok Keong",
@@ -9,7 +9,7 @@
         }
     ],
     "require": {
-        "illuminate/support": "5.2.*@stable"
+        "illuminate/support": "5.6.*@stable"
     },
     "autoload": {
         "classmap": [
